@@ -120,11 +120,13 @@ print(teams)
 #print(csv_list)
 
 def initmatrix():
-	M_array = np.zeros( (num_alliances, num_alliances) ) #initializing a matrix of 0's with num_alliances rows and num_teams columns
+	M_array = np.zeros( (num_alliances, num_alliances) ) #initializing a matrix of 0's with num_alliances rows and num_alliance columns
 	s_array = np.zeros( (num_alliances, 1) ) #initializing the alliance score matrix
 	row_num = 0
 	#M_array[0][1]=1 
 
+	#M_array: Since each match in the csv file contains 6 teams, there needs to be two rows created in the matrix for each alliance. One row is for the three red teams. The second row is for the three blue teams. There's a specific column for each team based on ascending order (smallest team number to the largest team number.) So for each team that plays in a match on an alliance, its corresponding column in that row (alliance) will be replaced with a 1. 
+	#s_array: this is just the matrix with the scores that each alliance makes in a match. Each match would have two scores, one for the red, and one for the blue, and similar to the M_array, they will be placed in separate rows. 
 	for row in csv_list:
 		for x in range(1, 4): 								#for red team
 			index = teams.index(int(row[x][3:]))
@@ -153,13 +155,15 @@ right_side = transposed.dot(prac1)
 final_right_side = left_side_transverse.dot(right_side)
 print(final_right_side)"""
 
-def isSquare (m): return all (len(row)==len(m) for row in m)
+def isSquare (matrix): 
+	return all (len(row)==len(matrix) for row in matrix) #this function is just to check if the matrix is square or not
+
 def OPRCalc(initmatrixresults): #since the number of matches (represents the number of equations) is greater than the number of teams in the event (represents the variables), overdetermined
-	M_array = initmatrixresults[0]
+	M_array = initmatrixresults[0]		#since the initmatrix() function is being passed in, the individual parts of the list that initmatrix() returns, represents M_array and the s_array
 	print (M_array)
 	s_array = initmatrixresults[1]
 	print(isSquare(M_array))
-	print(np.linalg.det(M_array))
+	print(np.linalg.det(M_array))			#this just gives the determinant of the matrix for debugging
 	inverse_M = np.linalg.inv(M_array)
 	"""
 	s_array = initmatrixresults[1]
