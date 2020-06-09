@@ -78,7 +78,7 @@ def initmatrix(prepresults, OPR_or_DPR):
 def isSquare (matrix): #just for debugging
 	return all (len(row)==len(matrix) for row in matrix) #this function is just to check if the matrix is square or not
 
-def OPRCalc(initmatrixresults): 
+def OPR_and_DPR_Calc(initmatrixresults): 
 #since the number of matches (represents the number of equations) is greater than the number of teams in the event (represents the variables), overdetermined
 	M_array = initmatrixresults[0]		#since the initmatrix() function is being passed in, the individual parts of the list that initmatrix() returns, represents M_array and the s_array
 	s_array = initmatrixresults[1]
@@ -98,6 +98,7 @@ def OPRCalc(initmatrixresults):
 	final_right_side = inverse_left_copy.dot(right_side)
 	return ([teams, final_right_side])
  
+""""
 def DPRCalc(initmatrixresults):	
 #since the number of matches (represents the number of equations) is greater than the number of teams in the event (represents the variables), overdetermined
 
@@ -118,12 +119,12 @@ def DPRCalc(initmatrixresults):
 	right_side = transposed_copy.dot(s_array)
 	final_right_side = inverse_left_copy.dot(right_side)
 	return (final_right_side)
-
+"""
 
 def display(OPRResults, DPRResults):
 	teams = OPRResults[0]
 	OPR_final_right_side = OPRResults[1]
-	DPR_final_right_side = DPRResults
+	DPR_final_right_side = DPRResults[1]
 
 	count = 0
 	for OPR in OPR_final_right_side:
@@ -144,8 +145,8 @@ def main():
 	print"Num of Alliances ", Prep[0] #number of alliances
 	print"Num of Teams     ", Prep[1] #number of teams
 	print
-	OPR_Results = OPRCalc(initmatrix(Prep, "OPR"))
-	DPR_Results = DPRCalc(initmatrix(Prep, "DPR"))
+	OPR_Results = OPR_and_DPR_Calc(initmatrix(Prep, "OPR"))
+	DPR_Results = OPR_and_DPR_Calc(initmatrix(Prep, "DPR"))
 	display(OPR_Results, DPR_Results)
 
 main()
