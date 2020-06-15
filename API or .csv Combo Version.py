@@ -10,17 +10,12 @@ np.set_printoptions(edgeitems=200)
 conn = sqlite3.connect(':memory:')
 c = conn.cursor()
 
-
-
 c.execute("""CREATE TABLE OPR_DPR_CCWM_Calculations (
 						team_number integer,
 						OPR real,
 						DPR real,
 						CCWM real
 						)""")
-
-
-
 
 def insert_values_into_table(team_number,OPR,DPR,CCWM):
 	with conn: #executing the statement from this context manager means that we don't have to commit after each execution
